@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxyk.dao.CityDao">
+    <insert id="addCity">
+        INSERT  into city(city_name) VALUES (#{city_name})
+    </insert>
+    <delete id="delCity" parameterType="int">
+        DELETE FROM city WHERE city_id = #{city_id}
+    </delete>
+    <select id="total" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM city
+    </select>
+    <select id="getAllCity" resultType="com.hxyk.entity.City">
+        SELECT * FROM city
+    </select>
+    <select id="getCitys" resultType="com.hxyk.entity.City">
+        SELECT * FROM city LIMIT #{offset},#{pageSize}
+    </select>
+    <select id="getCitysByOption" resultType="com.hxyk.entity.City">
+        SELECT * FROM city
+        <include refid="options"></include>
+        LIMIT #{offset},#{pageSize}
+    </select>
+
+    <select id="getTotalByOption" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM city
+        <include refid="options"></include>
+    </select>
+    <select id="selectByCityName" resultType="com.hxyk.entity.City">
+        SELECT * FROM city WHERE city_name=#{city_name}
+    </select>
+
+    <sql id="options">
+        <where>
+            <if test="name!=''">
+                city_name like "%"#{name}"%"
+            </if>
+<!--            <if test="isDisplay!=null">
+                and is_display=#{isDisplay}
+            </if>-->
+        </where>
+    </sql>
+</mapper>

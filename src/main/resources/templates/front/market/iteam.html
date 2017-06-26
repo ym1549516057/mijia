@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta charset="utf-8"/>
+    <meta name="description" content="overview &amp; stats"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+
+    <!-- bootstrap & fontawesome -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/ace/assets/font-awesome/4.5.0/css/font-awesome.min.css"/>
+
+    <!-- page specific plugin styles -->
+    <link rel="stylesheet" href="/bootstrapTable/bootstrap-table.min.css">
+    <link rel="stylesheet" href="/layer/skin/layer.css">
+    <!-- text fonts -->
+    <link rel="stylesheet" href="/ace/assets/css/fonts.googleapis.com.css"/>
+
+    <!-- ace styles -->
+    <link rel="stylesheet" href="/ace/assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style"/>
+
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/ace/assets/css/ace-part2.min.css" class="ace-main-stylesheet"/>
+    <![endif]-->
+    <link rel="stylesheet" href="/ace/assets/css/ace-skins.min.css"/>
+    <link rel="stylesheet" href="/ace/assets/css/ace-rtl.min.css"/>
+
+    <!--[if lte IE 9]>
+    <link rel="stylesheet" href="/ace/assets/css/ace-ie.min.css"/>
+    <![endif]-->
+
+    <!-- inline styles related to this page -->
+
+    <!-- ace settings handler -->
+    <script src="/ace/assets/js/ace-extra.min.js"></script>
+
+    <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
+
+    <!--[if lte IE 8]>
+    <script src="/ace/assets/js/html5shiv.min.js"></script>
+    <script src="/ace/assets/js/res/acepond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="no-skin">
+
+
+<div class="main-container ace-save-state" id="main-container">
+    <script type="text/javascript">
+        try {
+            ace.settings.loadState('main-container')
+        } catch (e) {
+        }
+    </script>
+
+
+
+    <div class="main-content">
+        <div class="main-content-inner">
+            <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+                <ul class="breadcrumb">
+                    <li>
+                        <i class="ace-icon fa fa-home home-icon"></i>
+                        <a href="#">商品详情</a>
+                    </li>
+                </ul><!-- /.breadcrumb -->
+
+            </div>
+
+            <div class="page-content">
+                <!-- /.ace-settings-container -->
+
+                <!--根据城市查询小区-->
+ <!--               <div id="toolbar" class="btn-group">
+                    <button class="btn btn-purple btn-sm" type="button" id="select">
+                        <span class="ace-icon fa fa-search icon-on-right "></span>
+                        查询
+                    </button>
+                    <button type="button" class="btn btn-primary btn-sm" id="add">
+                        <i class="glyphicon glyphicon-plus icon-plus"></i>新增
+                    </button>
+                    <button id="remove" class="btn btn-danger btn-sm" disabled>
+                        <i class="glyphicon glyphicon-remove"></i>删除
+                    </button>
+                    <button type="button" class="btn btn-primary btn-sm" id="edit">
+                        <i class="glyphicon glyphicon-edit"></i>修改
+                    </button>
+                    <button id="toggle-advanced-search" class="btn btn-success btn-sm" title="查询" type="button">
+                        <i class="fa fa-angle-double-down"></i>
+                    </button>
+                </div>-->
+
+                <table id="table" data-toolbar="#toolbar">
+
+                </table>
+
+            </div><!-- /.page-content -->
+        </div>
+    </div><!-- /.main-content -->
+
+    <div class="footer">
+        <div class="footer-inner">
+            <div class="footer-content">
+						<span class="bigger-120">
+							<span class="blue bolder">Ace</span>
+							Application &copy; 2013-2014
+						</span>
+
+                &nbsp; &nbsp;
+                <span class="action-buttons">
+							<a href="#">
+								<i class="ace-icon fa fa-twitter-square light-blue bigger-150"></i>
+							</a>
+
+							<a href="#">
+								<i class="ace-icon fa fa-facebook-square text-primary bigger-150"></i>
+							</a>
+
+							<a href="#">
+								<i class="ace-icon fa fa-rss-square orange bigger-150"></i>
+							</a>
+						</span>
+            </div>
+        </div>
+    </div>
+
+    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+        <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+    </a>
+</div><!-- /.main-container -->
+
+<!-- basic scripts -->
+
+<!--[if !IE]> -->
+<script src="/ace/assets/js/jquery-2.1.4.min.js"></script>
+
+<!-- <![endif]-->
+
+<!--[if IE]>
+<script src="/ace/assets/js/jquery-1.11.3.min.js"></script>
+<![endif]-->
+<script type="text/javascript">
+    if ('ontouchstart' in document.documentElement) document.write("<script src='/res/ace/assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+</script>
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- page specific plugin scripts -->
+<script src="/layer/layer.js"></script>
+<script src="/bootstrapTable/bootstrap-table.min.js"></script>
+<script src="/bootstrapTable/bootstrap-table-zh-CN.js"></script>
+<script src="/scripts/my.js"></script>
+
+<!--[if lte IE 8]>
+<script src="/ace/assets/js/excanvas.min.js"></script>
+<![endif]-->
+<script src="/ace/assets/js/jquery-ui.custom.min.js"></script>
+<script src="/ace/assets/js/jquery.ui.touch-punch.min.js"></script>
+<script src="/ace/assets/js/jquery.easypiechart.min.js"></script>
+<script src="/ace/assets/js/jquery.sparkline.index.min.js"></script>
+<script src="/ace/assets/js/jquery.flot.min.js"></script>
+<script src="/ace/assets/js/jquery.flot.pie.min.js"></script>
+<script src="/ace/assets/js/jquery.flot.resize.min.js"></script>
+
+<!-- ace scripts -->
+<script src="/ace/assets/js/ace-elements.min.js"></script>
+<script src="/ace/assets/js/ace.min.js"></script>
+
+<!-- inline scripts related to this page -->
+<script type="text/javascript">
+    var $table = $('#table');
+    var $remove = $('#remove');
+    var selections = [];//选中的行的id
+    $table.on('check.bs.table uncheck.bs.table ' + 'check-all.bs.table uncheck-all.bs.table', function () {
+        $remove.prop('disabled', !$table.bootstrapTable('getSelections').length);
+        // save your data, here just save the current page
+        selections = getIdSelections();
+        // push or splice the selections if you want to save all data selections
+    });
+
+
+    function getIdSelections() {
+        return $.map($table.bootstrapTable('getSelections'), function (row) {
+            return row.goods_id
+        });
+    }
+    function initTable() {
+        $table.bootstrapTable({
+            url: '/orderiteam/getUserIteam',
+            columns: [{
+                field: 'state',
+                checkbox: true
+            }, {
+                field: 'goods.goods_img',
+                align: 'center',
+                title: 'ID'
+            }, {
+                field: 'goods.goods_name',
+                align: 'center',
+                title: '商品名称'
+            }, {
+                field: 'goods.goods_price',
+                align: 'center',
+                title: '图片'
+            }, {
+                field: 'iteam_total',
+                align: 'center',
+                title: '价格'
+            }, {
+                field: 'iprice_total',
+                align: 'center',
+                title: '上下架'
+            },/* {
+                field: 'goods_ivn',
+                align: 'center',
+                title: '库存'
+            }, {
+                field: 'goods_dis',
+                align: 'center',
+                title: '描述'
+            }*/],
+            height: 513,
+            pagination: true,
+            pageSize: 10,
+            pageList: [0, 10],
+            dataType: "json",
+            search: false,
+            queryParams: queryParams,
+            sidePagination: "server"
+        })
+    }
+
+    function queryParams(params) {
+        var temp = {
+            limit: params.limit,
+            offset: params.offset,
+            /*            name: $("#name").val(),*/
+            classify_id:$("#classify_id").val()
+            /*            isDisplay: $("#isDisplay").val()*/
+        }
+        return temp;
+    }
+
+    function formatImg(value) {
+        return '<img style="width: 50px;height: 50px" src='+value+' />'
+    }
+
+
+    function formatIsDisplay(value) {
+        if (value == 0) {
+            return '<span style="color:red">否</span>';
+        } else {
+            return '是';
+        }
+    }
+    //批量删除
+    $remove.click(function () {
+        layer.confirm('确认删除?', {icon: 3, title: '提示'}, function () {
+            console.log(selections);//[13,16]   join()
+            //window.location.href = "/brand/dels?ids=" + selections;
+            $.post('/community/delCommunity', {ids: selections.join()}, function (data) {
+                console.log(data.success);
+                if (data.success) {
+                    $table.bootstrapTable('refresh');
+                    layer.msg('删除成功', {icon: 1});//自动消失
+                    $remove.prop('disabled', true);
+                } else {
+                    layer.alert("有记录正被使用!", {icon: 2})
+                }
+            })
+            layer.msg(selections.toString())
+        });
+    });
+    $('#edit').click(function () {
+        //判断是否有选中的项
+        var l = selections.length;
+        if (l == 0 || l > 1) {
+            layer.alert("请先选择一条记录!", {icon: 2})
+        } else {
+            window.location.href = "/goods/toUpdate?goods_id=" + selections[0]
+        }
+    });
+
+    //弹出查询框
+    $('#select').click(function () {
+        //slideToggle函数作用:被选元素(这里是表单)是可见的，则隐藏这些元素，如果被选元素是隐藏的，则显示这些元素
+        $("#div-advanced-search-1").slideToggle("fast");
+        /*        window.location.href = "/city/toAdd";*/
+    });
+    $('#add').click(function () {
+        //slideToggle函数作用:被选元素(这里是表单)是可见的，则隐藏这些元素，如果被选元素是隐藏的，则显示这些元素
+        /*     $("#div-advanced-search-2").slideToggle("fast");*/
+        window.location.href = "/goods/toAdd";
+    });
+
+
+
+    $('#search-1').click(function () {
+        $table.bootstrapTable('selectPage', 1);
+    })
+
+
+    //查询表单显示或隐藏
+    $("#toggle-advanced-search").click(function () {
+        //查询按钮小图标切换
+        $("i", this).toggleClass("fa-angle-double-down fa-angle-double-up");
+        //slideToggle函数作用:被选元素(这里是表单)是可见的，则隐藏这些元素，如果被选元素是隐藏的，则显示这些元素
+        $("#div-advanced-search").slideToggle("fast");
+    });
+    //查询
+    $("#search").click(function () {
+//        $table.bootstrapTable('refresh');
+        $table.bootstrapTable('selectPage', 1);
+    });
+
+    jQuery(function ($) {
+        initTable();
+        $('.easy-pie-chart.percentage').each(function () {
+            var $box = $(this).closest('.infobox');
+            var barColor = $(this).data('color') || (!$box.hasClass('infobox-dark') ? $box.css('color') : 'rgba(255,255,255,0.95)');
+            var trackColor = barColor == 'rgba(255,255,255,0.95)' ? 'rgba(255,255,255,0.25)' : '#E2E2E2';
+            var size = parseInt($(this).data('size')) || 50;
+            $(this).easyPieChart({
+                barColor: barColor,
+                trackColor: trackColor,
+                scaleColor: false,
+                lineCap: 'butt',
+                lineWidth: parseInt(size / 10),
+                animate: ace.vars['old_ie'] ? false : 1000,
+                size: size
+            });
+        })
+
+        $('.sparkline').each(function () {
+            var $box = $(this).closest('.infobox');
+            var barColor = !$box.hasClass('infobox-dark') ? $box.css('color') : '#FFF';
+            $(this).sparkline('html',
+                    {
+                        tagValuesAttribute: 'data-values',
+                        type: 'bar',
+                        barColor: barColor,
+                        chartRangeMin: $(this).data('min') || 0
+                    });
+        });
+
+
+        //flot chart resize plugin, somehow manipulates default browser resize event to optimize it!
+        //but sometimes it brings up errors with normal resize event handlers
+        $.resize.throttleWindow = false;
+
+        var placeholder = $('#piechart-placeholder').css({'width': '90%', 'min-height': '150px'});
+        var data = [
+            {label: "social networks", data: 38.7, color: "#68BC31"},
+            {label: "search engines", data: 24.5, color: "#2091CF"},
+            {label: "ad campaigns", data: 8.2, color: "#AF4E96"},
+            {label: "direct traffic", data: 18.6, color: "#DA5430"},
+            {label: "other", data: 10, color: "#FEE074"}
+        ]
+
+        function drawPieChart(placeholder, data, position) {
+            $.plot(placeholder, data, {
+                series: {
+                    pie: {
+                        show: true,
+                        tilt: 0.8,
+                        highlight: {
+                            opacity: 0.25
+                        },
+                        stroke: {
+                            color: '#fff',
+                            width: 2
+                        },
+                        startAngle: 2
+                    }
+                },
+                legend: {
+                    show: true,
+                    position: position || "ne",
+                    labelBoxBorderColor: null,
+                    margin: [-30, 15]
+                }
+                ,
+                grid: {
+                    hoverable: true,
+                    clickable: true
+                }
+            })
+        }
+
+        drawPieChart(placeholder, data);
+
+        /**
+         we saved the drawing function and the data to redraw with different position later when switching to RTL mode dynamically
+         so that's not needed actually.
+         */
+        placeholder.data('chart', data);
+        placeholder.data('draw', drawPieChart);
+
+
+        //pie chart tooltip example
+        var $tooltip = $("<div class='tooltip top in'><div class='tooltip-inner'></div></div>").hide().appendTo('body');
+        var previousPoint = null;
+
+        placeholder.on('plothover', function (event, pos, item) {
+            if (item) {
+                if (previousPoint != item.seriesIndex) {
+                    previousPoint = item.seriesIndex;
+                    var tip = item.series['label'] + " : " + item.series['percent'] + '%';
+                    $tooltip.show().children(0).text(tip);
+                }
+                $tooltip.css({top: pos.pageY + 10, left: pos.pageX + 10});
+            } else {
+                $tooltip.hide();
+                previousPoint = null;
+            }
+
+        });
+
+        /////////////////////////////////////
+        $(document).one('ajaxloadstart.page', function (e) {
+            $tooltip.remove();
+        });
+
+
+        var d1 = [];
+        for (var i = 0; i < Math.PI * 2; i += 0.5) {
+            d1.push([i, Math.sin(i)]);
+        }
+
+        var d2 = [];
+        for (var i = 0; i < Math.PI * 2; i += 0.5) {
+            d2.push([i, Math.cos(i)]);
+        }
+
+        var d3 = [];
+        for (var i = 0; i < Math.PI * 2; i += 0.2) {
+            d3.push([i, Math.tan(i)]);
+        }
+
+
+        var sales_charts = $('#sales-charts').css({'width': '100%', 'height': '220px'});
+        $.plot("#sales-charts", [
+            {label: "Domains", data: d1},
+            {label: "Hosting", data: d2},
+            {label: "Services", data: d3}
+        ], {
+            hoverable: true,
+            shadowSize: 0,
+            series: {
+                lines: {show: true},
+                points: {show: true}
+            },
+            xaxis: {
+                tickLength: 0
+            },
+            yaxis: {
+                ticks: 10,
+                min: -2,
+                max: 2,
+                tickDecimals: 3
+            },
+            grid: {
+                backgroundColor: {colors: ["#fff", "#fff"]},
+                borderWidth: 1,
+                borderColor: '#555'
+            }
+        });
+
+
+        $('#recent-box [data-rel="tooltip"]').tooltip({placement: tooltip_placement});
+        function tooltip_placement(context, source) {
+            var $source = $(source);
+            var $parent = $source.closest('.tab-content')
+            var off1 = $parent.offset();
+            var w1 = $parent.width();
+
+            var off2 = $source.offset();
+            //var w2 = $source.width();
+
+            if (parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2)) return 'right';
+            return 'left';
+        }
+
+
+        $('.dialogs,.comments').ace_scroll({
+            size: 300
+        });
+
+
+        //Android's default browser somehow is confused when tapping on label which will lead to dragging the task
+        //so disable dragging when clicking on label
+        var agent = navigator.userAgent.toLowerCase();
+        if (ace.vars['touch'] && ace.vars['android']) {
+            $('#tasks').on('touchstart', function (e) {
+                var li = $(e.target).closest('#tasks li');
+                if (li.length == 0)return;
+                var label = li.find('label.inline').get(0);
+                if (label == e.target || $.contains(label, e.target)) e.stopImmediatePropagation();
+            });
+        }
+
+        $('#tasks').sortable({
+                    opacity: 0.8,
+                    revert: true,
+                    forceHelperSize: true,
+                    placeholder: 'draggable-placeholder',
+                    forcePlaceholderSize: true,
+                    tolerance: 'pointer',
+                    stop: function (event, ui) {
+                        //just for Chrome!!!! so that dropdowns on items don't appear below other items after being moved
+                        $(ui.item).css('z-index', 'auto');
+                    }
+                }
+        );
+        $('#tasks').disableSelection();
+        $('#tasks input:checkbox').removeAttr('checked').on('click', function () {
+            if (this.checked) $(this).closest('li').addClass('selected');
+            else $(this).closest('li').removeClass('selected');
+        });
+
+
+        //show the dropdowns on top or bottom depending on window height and menu position
+        $('#task-tab .dropdown-hover').on('mouseenter', function (e) {
+            var offset = $(this).offset();
+
+            var $w = $(window)
+            if (offset.top > $w.scrollTop() + $w.innerHeight() - 100)
+                $(this).addClass('dropup');
+            else $(this).removeClass('dropup');
+        });
+
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxyk.dao.CommunityDao">
+    <insert id="addCommunity" parameterType="com.hxyk.entity.Community">
+        INSERT INTO community(city_id,community_name) VALUES (#{city_id},#{community_name})
+    </insert>
+    <delete id="delCommunityByID" parameterType="int">
+        DELETE FROM community WHERE community_id=#{community_id}
+    </delete>
+    <select id="getAllCommunity" resultType="com.hxyk.entity.Community">
+        SELECT * FROM community
+    </select>
+    <select id="getCommunityByCityId" resultType="com.hxyk.entity.Community" parameterType="int">
+        SELECT * FROM community WHERE city_id=#{city_ids}
+    </select>
+    <select id="getCommunityByID" resultType="com.hxyk.entity.Community" parameterType="java.lang.Integer">
+        SELECT * FROM community WHERE community_id=#{community_id}
+    </select>
+    <select id="getCommunityByCityIdByOption" resultType="com.hxyk.entity.Community">
+        SELECT * FROM community
+        <include refid="options"></include>
+        LIMIT #{offset},#{pageSize}
+    </select>
+    <select id="getTotalByOption" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM  community <include refid="options"></include>
+    </select>
+
+    <sql id="options">
+        <where>
+            <if test="city_id!=-1">
+                city_id = #{city_id}
+            </if>
+        </where>
+    </sql>
+</mapper>

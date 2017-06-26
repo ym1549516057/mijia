@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxyk.dao.ImageDao">
+    <insert id="uploadImage" parameterType="com.hxyk.entity.Image">
+        INSERT INTO image(image_name,image_src,image_url,isDisplay) VALUES (#{image_name},#{image_src},#{image_url},#{isDisplay})
+    </insert>
+    <update id="updateImage" parameterType="com.hxyk.entity.Image">
+        UPDATE image SET image_url=#{image_url},<include refid="imagesrc"></include>isDisplay=#{isDisplay} where image_id=#{image_id}
+    </update>
+    <select id="getImageByOption" resultType="com.hxyk.entity.Image">
+        SELECT * FROM image <include refid="options"></include> LIMIT #{offset},#{pageSize}
+    </select>
+    <select id="getTotalByOption" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM image <include refid="options"></include>
+    </select>
+    <select id="getByID" resultType="com.hxyk.entity.Image" parameterType="int">
+        SELECT * FROM image WHERE image_id=#{image_id}
+    </select>
+    <select id="getIamgeByIsDisplay" resultType="com.hxyk.entity.Image">
+        SELECT * FROM  image WHERE isDisplay = 1
+    </select>
+    <select id="getCountByIsDisplay" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM image WHERE isDisplay =1
+    </select>
+
+    <sql id="options">
+        <where>
+            <if test="isDisplay != -1">
+                isDisplay = #{isDisplay}
+            </if>
+        </where>
+    </sql>
+    <sql id="imagesrc">
+         <if test="image_name != ''">
+             image_name=#{image_name},image_src=#{image_src},
+         </if>
+    </sql>
+</mapper>

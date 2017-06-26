@@ -1,0 +1,159 @@
+body{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+#container{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+#first{
+    display: flex;
+    display: -webkit-flex;
+    width: 100%;
+    height:150px;
+    background-color: #D74D58;
+    justify-content: center;
+
+}
+#first-img{
+    display: flex;
+    display: -webkit-flex;
+    justify-content: center;
+    -webkit-justify-content: center;
+    align-items: center;
+    -webkit-align-items: center;
+    flex-flow: row nowrap;
+}
+.tenement-function{
+    display: flex;
+    display: -webkit-flex;
+    flex-flow: row;
+    width: 100%;
+    border-bottom: solid #b1b1b1;
+}
+
+.tenement-function-left{
+    display: flex;
+    display: -webkit-flex;
+    height: 125px;
+    width: 30%;
+    position: relative;
+}
+.tenement-function-img{
+    display: flex;
+    display: -webkit-flex;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+}
+.tenement-function-right{
+    display: flex;
+    display: -webkit-flex;
+    height: 125px;
+    width: 70%;
+    flex-flow: column;
+}
+.tenement-function-right-1 {
+    display: flex;
+    display: -webkit-flex;
+    height: 30%;
+    width: 100%;
+}
+
+.tenement-function-right-2{
+    display: flex;
+    display: -webkit-flex;
+    height: 70%;width: 100%;
+}
+
+/*报修页面*/
+.repairs-main{
+    display: flex;
+    display: -webkit-flex;
+    flex-flow: column;
+}
+
+.repairs-title-1{
+    display: flex;
+    display: -webkit-flex;
+    height: 100px;
+    width: 100%;
+    background-color: deeppink;
+    justify-content: center;
+}
+.repairs-title-2{
+    display: flex;
+    display: -webkit-flex;
+    height: 100px;
+    width: 100%;
+    flex-flow: row;
+    border-bottom: solid wheat;
+}
+
+.repairs-title-img{
+    display: flex;
+    display: -webkit-flex;
+    width: 20%;
+    height: 100px;
+    position: relative;
+
+
+}
+.repairs-title-img-1{
+    display: flex;
+    display: -webkit-flex;
+    width: 80%;
+    height: 100px;
+    position: absolute;
+    left: 25px;
+    top: 25px;
+}
+
+.repairs-title-img-2{
+    display: flex;
+    display: -webkit-flex;
+    width: 80%;
+    height: 100px;
+    align-items: center;//竖向排列居中
+}
+
+.repairs-dis{
+    display: flex;
+    display: -webkit-flex;
+    height: 200px;
+    width: 100%;
+    align-content: center;
+    position: absolute;
+    margin-top: 25px;
+    justify-content: center;
+}
+
+.repairs-img{
+    display: flex;
+    display: -webkit-flex;
+    height:200px;
+    width: 100%;
+    position: absolute;
+    top: 450px;
+}
+
+.repairs-botton{
+    display: flex;
+    display: -webkit-flex;
+    height:50px;
+    position: absolute;
+    top: 675px;
+    justify-content: center;
+}
+/*.repairs-botton button{
+    align-content: center;
+}*/
+
+
+
+
+
+
+

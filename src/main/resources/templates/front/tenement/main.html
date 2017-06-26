@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title></title>
+    <link rel="stylesheet" href="/css/tenement-main.css">
+
+</head>
+<body> <!--style="background-color: red;height: 1000px;width:100%;"-->
+<div id="container">
+    <div id="first">
+        <div id="first-img">
+            <img src="/images/t1.png" style="width:100px;height: 100px;">
+            <div id="community">
+                <div>成华区</div>
+                <div>社区超市</div>
+            </div>
+        </div>
+    </div>
+    <div class="tenement-function">
+        <div class="tenement-function-left"><div class="tenement-function-img">
+            <img src="/images/T1.jpg" style="height:100px;width: 100px">
+            <a href="/tenement/torepairs" class="tenement-function-url"></a>
+        </div></div>
+        <div class="tenement-function-right">
+            <div class="tenement-function-right-1"><h2>物业报修</h2></div>
+            <div class="tenement-function-right-2"><p>专业维修团队，第一时间帮您解决物业设施故障的问题。</p></div>
+        </div>
+    </div>
+    <div class="tenement-function">
+        <div class="tenement-function-left"><div class="tenement-function-img">
+            <img src="/images/T2.jpg"  style="height:100px;width: 100px">
+            <a href="map.baidu.com" class="tenement-function-url" value="map.baidu.com"></a>
+        </div></div>
+        <div class="tenement-function-right">
+            <div class="tenement-function-right-1"><h2>小区公告</h2></div>
+            <div class="tenement-function-right-2"><p>停水、停电、停气...从此告别传统公告方式。</p></div>
+        </div>
+    </div>
+    <div class="tenement-function">
+        <div class="tenement-function-left"><div class="tenement-function-img">
+            <img src="/images/T3.jpg"  style="height:100px;width: 100px">
+            <a href="/tenement/tovote" class="tenement-function-url"></a>
+        </div></div>
+        <div class="tenement-function-right">
+            <div class="tenement-function-right-1"><h2>业主投票</h2></div>
+            <div class="tenement-function-right-2"><p>小区整改靠大家，迷家APP投票方便，快捷，让业主做真正社区的主人。</p></div>
+        </div>
+    </div>
+    <div class="tenement-function">
+        <div class="tenement-function-left"><div class="tenement-function-img"><img src="/images/T4.jpg"  style="height:100px;width: 100px"></div></div>
+        <div class="tenement-function-right">
+            <div class="tenement-function-right-1"><h2>物业工作展示</h2></div>
+            <div class="tenement-function-right-2"><p>可能你平时没有看到，但你确确实实又一个相当了不起的物业团队。</p></div>
+        </div>
+    </div>
+    <div class="tenement-function">
+        <div class="tenement-function-left"><div class="tenement-function-img"><img src="/images/T1.jpg"  style="height:100px;width: 100px"></div></div>
+        <div class="tenement-function-right">
+            <div class="tenement-function-right-1"><h2>水、电、气预充值</h2></div>
+            <div class="tenement-function-right-2"><p></p></div>
+        </div>
+    </div>
+    <div class="tenement-function">
+        <div class="tenement-function-left"><div class="tenement-function-img"><img src="/images/T1.jpg"  style="height:100px;width: 100px"></div></div>
+        <div class="tenement-function-right">
+            <div class="tenement-function-right-1"><h2>新房装修</h2></div>
+            <div class="tenement-function-right-2"><p></p></div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/jquery-3.2.0.min.js"></script>
+<script src="/layer/layer.js"></script>
+<script type="text/javascript">
+  $(".tenement-function").click(function () {
+      var src = $(this).find("a").prop('href');/*寻找a标签下的href属性*/
+      window.location.href=src;
+  })
+</script>
+
+
+</body>
+</html>

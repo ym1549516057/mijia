@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="../css/login.css">
+	<link href="../bootstrap/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+<div class="main">
+	<div class="form-title"><h2>登录</h2></div>
+	<div class="form">
+		<form method="post" action="/user/login">
+			<div class="input"><input class="from-input" name="user_tel" placeholder="手机号码"><br/></div>
+			<div class="input"><input class="from-input" name="password" placeholder="输入密码"><br/></div>
+			<div class="input"><button type="submit" class="btn btn-lg btn-success btn-block" style="width:300px;background-color: deeppink;border-color:white">登录</button></div>
+			<div class="input"><p th:text="${error}"></p></div>
+		</form>
+	</div>
+	<div class="form-p"><p><a href="/user/toupdatepassword">忘记密码?</a></p></div>
+</div>
+
+
+</body>
+
+</html>

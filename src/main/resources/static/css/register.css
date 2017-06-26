@@ -1,0 +1,51 @@
+body{
+    display: flex;
+    display: -webkit-flex;
+    justify-content: center;
+}
+
+#register-main {
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    display: flex;
+    display: -webkit-flex;
+    height: 700px;
+    width: 400px;
+    background-color: deeppink;
+    justify-content: center;
+    flex-flow: column nowrap;
+
+}
+
+#h2{
+    display: flex;
+    display: -webkit-flex;
+    justify-content: center;
+    flex: 1;
+}
+
+.register-input{
+    display: flex;
+    display: -webkit-flex;
+    justify-content: center;
+    margin-top: 25px;
+    margin-bottom: 50px;
+}
+#input,#password,#password_again,#user_name,#user_tel{
+    border-bottom: white 1px solid;
+    border-top-style: none;
+    border-right-style: none;
+    border-left-style: none;
+    background-color: transparent;
+    width:80%;
+}
+input{
+    border-bottom: white 1px solid;
+    border-top-style: none;
+    border-right-style: none;
+    border-left-style: none;
+    background-color: transparent;
+    width:50%;
+}

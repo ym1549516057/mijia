@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!--自适应-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <title>物业报修</title>
+    <link rel="stylesheet" href="/css/tenement-main.css">
+    <link rel="stylesheet" href="/webuploader-0.1.5/webuploader.css">
+    <link rel="stylesheet" href="/webuploader-0.1.5/image-upload/style.css">
+
+</head>
+<body>
+    <div class="repairs-main">
+        <div class="repairs-title-1"><h1 style="font-size:75px;color: white">物业报修</h1></div>
+        <div class="repairs-title-2">
+            <div class="repairs-title-img">
+                <div class="repairs-title-img-1">
+                    <img src="/images/T1.jpg" style="height: 50px;width: 50px">
+                </div>
+            </div>
+            <div class="repairs-title-img-2"><p style="font-size: 25px">新增报修</p></div>
+        </div>
+
+        <form action="/tenement/uploadRepairsPic" enctype="multipart/form-data" method="post">
+        <div class="repairs-dis">
+              <textarea  name="repairs_dis" id="repairs_dis" style="resize: none;wrap:virtual;height: 200px;width: 90%;font-size: 50px" maxlength="30">
+              </textarea>
+        </div>
+        <div class="repairs-img">
+            <input type="file" name="f">
+          <!--  <div id="container">
+                &lt;!&ndash;头部，相册选择和格式选择&ndash;&gt;
+                <div id="uploader">
+                    <div class="queueList">
+                        <div id="dndArea" class="placeholder">
+                            <div id="filePicker"></div>
+                            <p>或将照片拖到这里</p>
+                        </div>
+                    </div>
+                    <input type="hidden" name="imgUrl" value="" id="imgUrl">
+                    <div class="statusBar" style="display:none;">
+                        <div class="progress">
+                            <span class="text">0%</span>
+                            <span class="percentage"></span>
+                        </div>
+                        <div class="info"></div>
+                        <div class="btns">
+                            <div id="filePicker2"></div>
+                            <div class="uploadBtn">开始上传</div>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+        </div>
+            <div>
+                <button type="submit" class="repairs-botton">提交</button>
+            </div>
+        </form>
+
+    </div>
+
+
+    <script type="text/javascript" src="/ace/assets/js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="/webuploader-0.1.5/webuploader.js"></script>
+    <script type="text/javascript" src="/webuploader-0.1.5/image-upload/upload.js"></script>
+<script>
+/*    $(".repairs-botton").click(function () {
+        var repairs_dis = $("#repairs_dis").val();
+        $.ajax({
+            url:"/tenement/uploadRepairsPic",
+            data:JSON.stringify(repairs_dis),
+            type:"post",
+            contentType:'application/json',
+            success:function (data) {
+                if(data == "success"){
+                    layer.msg(data,{icon: 10})
+                }
+            }
+        })
+        alert(repairs_dis)
+    })*/
+</script>
+</body>
+</html>

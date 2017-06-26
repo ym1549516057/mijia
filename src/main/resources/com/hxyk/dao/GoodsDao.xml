@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxyk.dao.GoodsDao">
+    <insert id="addGoods">
+        INSERT INTO  goods(market_id,classify_id,goods_name,goods_img,goods_price,goods_state,goods_ivn,goods_dis)
+        VALUES (#{market_id},#{classify_id},#{goods_name},#{goods_img},#{goods_price},#{goods_state},#{goods_ivn},#{goods_dis})
+    </insert>
+    <update id="updateGoods" parameterType="com.hxyk.entity.Goods">
+        UPDATE goods SET classify_id=#{classify_id},goods_name=#{goods_name},<include refid="goodsimg"></include>,
+        goods_price=#{goods_price},
+        goods_state=#{goods_state},goods_ivn=#{goods_ivn},goods_dis=#{goods_dis} WHERE goods_id=#{goods_id}
+    </update>
+    <select id="getGoodsByOption" resultType="com.hxyk.entity.Goods">
+        SELECT * FROM goods WHERE market_id=${market_id} <include refid="options"></include>  LIMIT #{offset},#{pageSize}
+    </select>
+    <select id="getTotalByOption" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM goods WHERE market_id=${market_id} <include refid="options"></include>
+    </select>
+    <select id="getGoodsById" resultType="com.hxyk.entity.Goods">
+        SELECT * FROM goods WHERE goods_id=#{goods_id}
+    </select>
+    <select id="getGoodsByClassifyId" resultType="com.hxyk.entity.Goods">
+        SELECT * FROM goods WHERE classify_id=#{classify_id} AND market_id=#{market_id} AND goods_state=1
+    </select>
+    <sql id="options">
+         <if test="classify_id != -1">
+           AND  classify_id=${classify_id}
+         </if>
+    </sql>
+    <sql id="goodsimg">
+        <if test="goods_img != ''">
+            goods_img=#{goods_img}
+        </if>
+    </sql>
+
+</mapper>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title></title>
+    <link rel="stylesheet" href="/css/market-main.css">
+
+</head>
+<body> <!--style="background-color: red;height: 1000px;width:100%;"-->
+<div id="container">
+    <div id="first">
+        <div id="first-img">
+            <img src="/images/t1.png" style="width:100px;height: 100px;">
+            <div id="community">
+                <div>成华区</div>
+                <div>社区超市</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="second">
+        <div id="second-left">商品</div>
+        <div id="second-right">评论</div>
+    </div>
+    <div id="three">
+        <div id="three-left">
+            <div class="menu-left scrollbar-none" id="sidebar">
+                <ul id="classify" >
+                    <!--class="active"-->
+                    <li th:each="classify:${classifyList}" th:text="${classify.classify_name}" th:value="${classify.classify_id}"></li>
+                </ul>
+            </div>
+        </div>
+        <div id="three-right">
+            <ul id="three-right-ul">
+
+            </ul>
+           <!-- <div id="menue-right">
+                <img src="/images/t1.png" style="width:75px;height: 75px;">
+                <div id="goods">
+                    <div style="font-size: 15px">商品名称</div>
+                    <div style="font-size: 10px">描述</div>
+                    <div style="font-size: 20px;margin-top: 5px">价格</div>
+                    <div id="add">
+                    <div style="font-size: 10px">库存</div>
+                    <div id="goods-add">
+                        <input type="button" value="-">
+                        <input type="button" value="+">
+                    </div>
+                    </div>
+                </div>
+            </div>
+-->
+        </div>
+    </div>
+
+    <div id="four">
+        <div id="four-one">
+            <div id="cart"><img src="/images/cart.jpg" style="border-radius: 30px"></div>
+            <div id="four-one-1">总价格</div>
+            <div id="four-one-2">当前购物车有几件商品</div>
+           <!-- <div class="cd-cart-container empty">
+                <a href="#0" class="cd-cart-trigger">
+                    Cart
+                    <ul class="count"> &lt;!&ndash; cart items count &ndash;&gt;
+                        <li>0</li>
+                        <li>0</li>
+                    </ul> &lt;!&ndash; .count &ndash;&gt;
+                </a>
+
+                <div class="cd-cart">
+                    <div class="wrapper">
+                        <header>
+                            <h2>Cart</h2>
+                            <span class="undo">Item removed. <a href="#0">Undo</a></span>
+                        </header>
+
+                        <div class="body">
+                            <ul>
+                                &lt;!&ndash; products added to the cart will be inserted here using JavaScript &ndash;&gt;
+                            </ul>
+                        </div>
+
+                        <footer>
+                            <a href="#0" class="checkout btn"><em>Checkout - $<span>0</span></em></a>
+                        </footer>
+                    </div>
+                </div> &lt;!&ndash; .cd-cart &ndash;&gt;
+            </div> &lt;!&ndash; cd-cart-container &ndash;&gt;-->
+        </div>
+        <div id="four-two">
+                <h2>前往购物车</h2>
+        </div>
+    </div>
+</div>
+
+<!--<script src="cart/js/jquery-2.1.1.min.js" type="text/javascript"></script>
+<script src="cart/js/main.js"></script> &lt;!&ndash; Resource jQuery &ndash;&gt;-->
+
+
+
+<script src="/js/jquery-3.2.0.min.js"></script>
+<script src="/layer/layer.js"></script>
+<script type="text/javascript">
+    var totalIteam = new Array();
+    //增加
+    function jiaclick(dom) {
+        var $this = $(dom);
+        //从父标签下寻找class=num的标签的值
+        var n = $this.parent().find('.num').val();
+        var num = parseInt(n)+1;
+        if(num < 0 ){
+            num = 0;
+            return;
+        }
+        $this.parent().find('.num').val(num);
+
+        var _goods_id=$this.parent().parent().parent().find("#goods_id").val();
+        var _goods_price = $this.parent().parent().parent().find("#goods_price").val();
+        var orderiteam={};
+        orderiteam.iteam_total = num;
+        orderiteam.iprice_total = num * _goods_price;
+        orderiteam.goods_id = _goods_id;
+        $.ajax({
+            url:"/orderiteam/addOrderiteam",
+            data:JSON.stringify(orderiteam),
+            type:"post",
+            contentType:'application/json'
+        })
+    }
+    //减少
+    function jianclick(dom) {
+        var $this = $(dom);
+        //从父标签下寻找class=num的标签的值
+        var n = $this.parent().find('.num').val();
+        var num = parseInt(n)-1;
+        if(num < 0){
+            num = 0;
+            return;
+        }
+        $this.parent().find('.num').val(num);
+
+        var _goods_id=$this.parent().parent().parent().find("#goods_id").val();
+        var _goods_price = $this.parent().parent().parent().find("#goods_price").val();
+        var orderiteam={};
+        orderiteam.iteam_total = num;
+        orderiteam.iprice_total = num * _goods_price;
+        orderiteam.goods_id = _goods_id;
+        $.ajax({
+            url:"/orderiteam/addOrderiteam",
+            data:JSON.stringify(orderiteam),
+            type:"post",
+            contentType:'application/json'
+        })
+    }
+
+
+    $(function(){
+        $("#classify li:first").attr("class","active")
+    })
+
+    $(function($){
+        $('#sidebar ul li').click(function(){
+            $("#three-right-ul").html("");
+            $(this).addClass('active').siblings('li').removeClass('active');
+            var index = $(this).index();
+            //获取点击行的值
+            var classify_id = $(this).val();
+            $.ajax({
+                url:"/goods/getGoodsByClassifyId",
+                data:JSON.stringify(classify_id),
+                type:"post",
+                contentType:'application/json',
+                success:function (data) {
+                    $.each(data,function (index,goods) {
+                        $("#three-right-ul").append('<li>'+
+                               '<li id="menue-right"> ' +
+                               ' <img src="'+goods.goods_img+'" style="width:75px;height: 80px;">'+
+                               ' <div id="goods">'+
+                               ' <input type="hidden" id="goods_id" value="'+goods.goods_id+'">'+
+                               ' <div style="font-size: 17px">'+goods.goods_name+'</div>'+
+                               ' <div style="font-size: 10px">'+goods.goods_dis +'</div>'+
+                               ' <div style="font-size: 22px;margin-top: 5px;color: red">' +
+                                '<input type="text" value="'+goods.goods_price +'" style="border: none;background-color: white;font-size: 22px;margin-top: 5px;color: red" disabled id="goods_price"></input></div>'+
+                               ' <div id="add">'+
+                                     '<div style="font-size: 10px">'+goods.goods_ivn +'</div>'+
+                                     '<div id="goods-add">'+
+                                          '<input type="button" value="-" id="jian" onclick="jianclick(this)">'+
+                                          '<input readonly type="text" value="0" class="num"/>'+
+                                          '<input type="button" value="+" id="jia" onclick="jiaclick(this)">'+
+                                     '</div>'+
+                                  '</div>'+
+                                '</div>'+
+                               '</li>'
+                        )
+                    })
+                }
+            })
+
+            $('.j-content').eq(main).show().siblings('.j-content').hide();
+        })
+    })
+
+    //购物车内容
+    $("#cart").click(function () {
+        //边缘弹出
+        layer.open({
+            area:["100%"],//设置宽度
+            type: 1
+            ,title:'购物车'//设置标题
+            ,offset: 'b' //具体配置参考：offset参数项
+            ,content: '<div style="width: 100%;height: 500px" id="cart-iteam">' +
+            '<div>' +
+            '<table style="border: 1px solid;text-align: center" id="iteam">' +
+            '<tr><td style="width: 200px">ID</td>' +
+            '<td style="width: 200px">商品ID</td>' +
+            '<td style="width: 200px">商品名</td>' +
+            '<td style="width: 200px">图片</td>' +
+            '<td style="width: 200px">单价</td>' +
+            '<td style="width: 200px">数量</td>' +
+            '<td style="width: 200px">金额</td></tr>' +
+          /*  '<tr><td>'+iteam.goods.goods_name+'</td><td>'+iteam.goods.goods_price+'</td></tr>' +*/
+            '</table>' +
+            '</div>' +
+            '<div id="cart_total">总金额：<input type="text" style="border: none;background-color: white" readonly value="0" id="total_price">' +
+            '<button onclick="tijiao(this)" id="tijiao">结算</button></div>'+
+            '</div>'
+        });
+        $.ajax({
+            url:"/orderiteam/getUserIteam",
+        /*    data:JSON.stringify(classify_id),*/
+            type:"post",
+            contentType:'application/json',
+            success:function (data) {
+                $.each(data,function (index,iteam) {
+                    totalIteam[index] = {};
+                    totalIteam[index].iteam_id=iteam.iteam_id;
+                    $("#iteam").append('<tr><td><input type="text" id="iteam_goods_id" style="border: none;background-color: white" readonly value="'+iteam.iteam_id+'"></td>' +
+                            '<td><input type="text" id="iteam_goods_id" style="border: none;background-color: white" readonly value="'+iteam.goods_id+'"></td>' +
+                            '<td>'+iteam.goods.goods_name+'</td>' +
+                            '<td><img src="'+iteam.goods.goods_img+'" style="height: 50px;width: 50px"></td>' +
+                            '<td><input type="text" id="iteam_price" style="border: none;background-color: white" readonly value="'+iteam.goods.goods_price+'"></td>' +
+                            '<td>'+
+                            ' <div id="iteam-add">'+
+                                 '<input type="button" value="-" id="iteam_jian" onclick="iteam_jianclick(this)">'+
+                                 '<input readonly type="text" value="'+ iteam.iteam_total+'" id="iteam_total" class="num"/>'+
+                                 '<input type="button" value="+" id="iteam_jia" onclick="iteam_jiaclick(this)">'+
+                            '</div></td>' +
+                            '<td ><input type="text" class="iprice_total" style="border: none;background-color: white" readonly value="'+iteam.iteam_total * iteam.goods.goods_price+'">' +
+                            '</td></tr>');
+                    /*总金额*/
+                    var total_price = parseInt($("#total_price").val());
+                    var iprice_total = parseInt($(".iprice_total").val());
+                    total_price = total_price+iprice_total;
+                    $("#total_price").val(total_price);
+                })
+            }
+        })
+    })
+    //增加
+    function iteam_jiaclick(dom) {
+        var $this = $(dom);
+        //从父标签下寻找class=num的标签的值
+        var n = $this.parent().find('.num').val();
+        var num = parseInt(n) + 1;
+        if (num < 0) {
+            num = 0;
+            return;
+        }
+        $this.parent().find('.num').val(num);
+        var iteam_price = $this.parent().parent().parent().find('#iteam_price').val();//商品单价
+        var price = parseInt(iteam_price);
+        var iprice_total = price * num; //
+        $this.parent().parent().parent().find('.iprice_total').val(iprice_total);
+
+        var orderiteam={};
+        orderiteam.iteam_total = num;
+        orderiteam.iprice_total = iprice_total;
+        $.ajax({
+            url:"/orderiteam/addOrderiteam",
+            data:JSON.stringify(orderiteam),
+            type:"post",
+            contentType:'application/json'
+        })
+    }
+
+    function iteam_jianclick(dom) {
+        var $this = $(dom);
+        //从父标签下寻找class=num的标签的值
+        var n = $this.parent().find('.num').val();
+        var num = parseInt(n) - 1;
+        if (num < 0) {
+            num = 0;
+            return;
+        }
+        $this.parent().find('.num').val(num);
+
+        var iteam_price = $this.parent().parent().parent().find('#iteam_price').val();//商品单价
+        var price = parseInt(iteam_price);
+        var iprice_total = price * num; //
+        $this.parent().parent().parent().find('.iprice_total').val(iprice_total);
+
+        var orderiteam={};
+        orderiteam.iteam_total = num;
+        orderiteam.iprice_total = iprice_total;
+        $.ajax({
+            url:"/orderiteam/addOrderiteam",
+            data:JSON.stringify(orderiteam),
+            type:"post",
+            contentType:'application/json'
+        })
+    }
+    function tijiao(dom) {
+        var $this = $(dom);
+      /*  window.location.href/orders/tomain*/
+        $.ajax({
+            url:"/orders/tomain",
+            data:JSON.stringify(totalIteam),
+            type:"post",
+            contentType:'application/json',
+            success:function (data) {
+                alert("sss");
+            }
+        })
+    }
+
+/*    $("#tijiao").click(function () {
+        layer.msg("111111")
+ /!*       $.ajax({
+            url:"/orders/tomain",
+            data:JSON.stringify(totalIteam),
+            type:"post",
+            contentType:'application/json'
+        })*!/
+    })*/
+</script>
+
+</body>
+</html>

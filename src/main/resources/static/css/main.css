@@ -1,0 +1,218 @@
+body{
+    display: flex;
+    display: -webkit-flex;
+    justify-content: center;
+}
+.main{
+
+    display: flex;
+    display:  -webkit-flex;
+    height: 700px;
+    width: 400px;
+    justify-content: center;
+    flex-flow: column nowrap;
+}
+
+.container{
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    background-color: red;
+    display: flex;
+    display: -webkit-flex;
+    height: 50px;
+    width: 400px;
+    justify-content: space-between;
+}
+.container-left{
+    display: flex;
+    display: -webkit-flex;
+    margin-left: 15px;
+    margin-top: 15px;
+    color: white;
+}
+.container-center{
+    display: flex;
+    display: -webkit-flex;
+    margin-top: 15px;
+    color: white;
+}
+.container-right{
+    display: flex;
+    display: -webkit-flex;
+    margin-right: 15px;
+    margin-top: 15px;
+    color: white;
+}
+/*
+.context{
+    display: flex;
+    display: -webkit-flex;
+    background-color: blue;
+    height: 200px;
+    justify-content: center;/!*居中*!/
+}
+*/
+
+.htmleaf-container{
+    display: flex;
+    display: -webkit-flex;
+    height: 200px;
+    justify-content: center;
+}
+
+.three{
+    height: 250px;
+    display: flex;
+    display: -webkit-flex;
+    justify-content: space-around;
+    flex-flow: wrap;
+}
+.div-img{
+    display: flex;
+    display: -webkit-flex;
+    flex: 1;
+    flex-flow: inherit;/*按行排列*/
+    align-items: center;
+}
+
+.four{
+    display: flex;
+    display: -webkit-flex;
+    height: 300px;
+    background-color: mediumblue;
+}
+.four-left{
+    display: flex;
+    display: -webkit-flex;
+    height: 280px;
+    width: 180px;
+    background-color: chartreuse;
+    margin: 5px;
+}
+.four-right{
+    display: flex;
+    display: -webkit-flex;
+    height: 280px;
+    width: 180px;
+    flex-flow: column;
+    margin-top: 5px;
+    margin-left: 5px;
+}
+.four-right-top{
+    display: flex;
+    display: -webkit-flex;
+    height: 90px;
+    width: 200px;
+    background-color: #535cc7;
+}
+.four-right-center{
+    display: flex;
+    display: -webkit-flex;
+    height: 90px;
+    width: 200px;
+    margin-top: 5px;
+    background-color: coral;
+}
+.four-right-bottom{
+    display: flex;
+    display: -webkit-flex;
+    height: 90px;
+    width: 200px;
+    margin-top: 5px;
+    background-color: darkorchid;
+}
+.end{
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    display: flex;
+    display:  -webkit-flex;;
+    height: 100px;
+    background-color: lime;
+
+}
+* {
+    padding: 0px;
+    margin: 0px;
+}
+a {
+    text-decoration: none;
+}
+ul {
+    list-style: outside none none;
+}
+.slider, .slider-panel img, .slider-extra {
+    width: 400px;
+    height: 150px;
+}
+.slider {
+    display: flex;
+    display: -webkit-flex;
+    width: 400px;
+    height: 150px;
+    text-align: center;
+    /*    margin: 30px auto;*/
+    position: relative;
+}
+.slider-panel, .slider-nav, .slider-pre, .slider-next {
+    position: absolute;
+    z-index: 8;
+    width: 400px;
+    height: 150px;
+}
+.slider-panel {
+    position: absolute;
+}
+.slider-panel img {
+    border: none;
+}
+/*.slider-extra {
+    position: relative;
+}*/
+.slider-nav {
+    margin-left: -51px;
+    position: absolute;
+    left: 50%;
+    bottom: 4px;
+}
+.slider-nav li {
+    background: #3e3e3e;
+    border-radius: 50%;
+    color: #fff;
+/*    cursor: pointer;*/
+    margin: 0 2px;
+/*    overflow: hidden;*/
+    position: absolute;
+    text-align:left;
+    display: inline-block;
+    height: 18px;
+    line-height: 2px;
+    width: 18px;
+}
+.slider-nav .slider-item-selected {
+    background: blue;
+}
+.slider-page a{
+    background: rgba(0, 0, 0, 0.2);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#33000000,endColorstr=#33000000);
+    color: #fff;
+    text-align: center;
+    display: block;
+    font-family: "simsun";
+    font-size: 22px;
+    width: 28px;
+    height: 62px;
+    line-height: 62px;
+    margin-top: -31px;
+    position: absolute;
+    top: 50%;
+}
+.slider-page a:HOVER {
+    background: rgba(0, 0, 0, 0.4);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000,endColorstr=#66000000);
+}
+.slider-next {
+    left: 100%;
+    margin-left: -28px;
+}
+
+

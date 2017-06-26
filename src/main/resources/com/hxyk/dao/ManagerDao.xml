@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxyk.dao.ManagerDao">
+    <insert id="addManager" parameterType="com.hxyk.entity.Managers">
+        INSERT INTO manager(manager_name,manager_tel,password,manager_state) VALUES (#{manager_name},#{manager_tel},#{password},#{manager_state})
+    </insert>
+    <select id="login" resultType="com.hxyk.entity.Managers">
+        SELECT * FROM manager WHERE manager_tel=#{manager_tel} and password=#{password}
+    </select>
+</mapper>

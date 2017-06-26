@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxyk.dao.OrderiteamDao">
+    <insert id="addOrderiteam" parameterType="com.hxyk.entity.Orderiteam">
+        INSERT INTO orderiteam(goods_id,iteam_total,iprice_total,iteam_state,user_id)
+         VALUES (#{goods_id},#{iteam_total},#{iprice_total},#{iteam_state},#{user_id})
+    </insert>
+    <update id="updateOrderiteam" parameterType="com.hxyk.entity.Orderiteam">
+        UPDATE orderiteam SET goods_id=#{goods_id},iteam_total=#{iteam_total},iprice_total=#{iprice_total}
+        WHERE iteam_id=#{iteam_id}
+    </update>
+    <delete id="delOrderiteamById">
+        DELETE FROM orderiteam WHERE iteam_id=#{iteam_id}
+    </delete>
+    <select id="getByGoodsId" resultType="com.hxyk.entity.Orderiteam">
+        SELECT * FROM orderiteam WHERE goods_id=#{goods_id} and iteam_state=0 AND user_id=#{user_id}
+    </select>
+    <select id="getAllGoodsByUser" resultType="com.hxyk.entity.Orderiteam">
+        SELECT * FROM orderiteam WHERE user_id=#{user_id} and iteam_state=#{iteam_state}
+    </select>
+
+    <resultMap id="iteamList" type="com.hxyk.entity.Orderiteam">
+        <id property="iteam_id" column="iteam_id"></id>
+        <result property="goods_id" column="goods_id"></result>
+        <result property="iteam_total" column="iteam_total"></result>
+        <result property="iprice_total" column="iprice_total"></result>
+        <association property="goods" javaType="com.hxyk.entity.Goods">
+            <result property="goods_img" column="goods_img"></result>
+            <result property="goods_name" column="goods_name"></result>
+            <result property="goods_price" column="goods_price"></result>
+        </association>
+    </resultMap>
+
+    <select id="getOrderiteamMap" resultMap="iteamList">
+        SELECT goods_img,goods_name,goods_price,iteam_total,iprice_total FROM goods G,orderiteam O WHERE
+        user_id=#{user_id} AND iteam_state=#{iteam_state} and G.goods_id=O.goods_id LIMIT #{offset},#{pageSize}
+    </select>
+    <select id="getOrderiteamMapTotal" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM orderiteam WHERE user_id=#{user_id} and iteam_state=#{iteam_state}
+    </select>
+    <select id="getUserIteam" resultMap="iteamList">
+         SELECT O.iteam_id,O.goods_id,goods_img,goods_name,goods_price,iteam_total,iprice_total FROM goods G,orderiteam O WHERE
+        user_id=#{user_id} AND iteam_state=#{iteam_state} and G.goods_id=O.goods_id
+    </select>
+
+</mapper>

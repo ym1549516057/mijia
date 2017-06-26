@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxyk.dao.RepairsDao">
+    <insert id="addRepairs" parameterType="com.hxyk.entity.Repairs">
+        INSERT  INTO repairs(repairs_dis,repairs_img,user_id,repairs_commit_time,repairs_state) VALUES
+         (#{repairs_dis},#{repairs_img},#{user_id},#{repairs_commit_time},#{repairs_state})
+    </insert>
+
+</mapper>

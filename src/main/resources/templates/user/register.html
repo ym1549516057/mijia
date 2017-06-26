@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title></title>
+    <link rel="stylesheet" href="/css/register.css"/>
+    <link href="/bootstrap/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="/bootstrapvalidator-master/vendor/bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" href="/bootstrapvalidator-master/dist/css/bootstrapValidator.css"/>
+
+    <script type="text/javascript" src="/bootstrapvalidator-master/vendor/jquery/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/bootstrapvalidator-master/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/bootstrapvalidator-master/dist/js/bootstrapValidator.js"></script>
+</head>
+<body>
+<div id="register-main">
+    <div id="h2"><h2>注册</h2></div>
+    <form method="post" action="/user" id="registerForm">
+        <div class="register-input">
+            <input id="user_name" type="text" name="user_name" placeholder="请输入用户名"/>
+            <span class="help-block" id="username" />
+        </div>
+        <div class="register-input">
+            <input  id="user_tel" type="text" name="user_tel" placeholder="请输入手机号"/>
+        </div>
+        <div class="register-input">
+            <input  id="password" type="password" name="password" placeholder="请输入密码" />
+        </div>
+        <div class="register-input">
+            <input  id="password_again" type="password" placeholder="确认密码"/>
+        </div>
+        <div class="register-input">
+            <input type="text"  placeholder="输入验证码" name="validate" />
+            <input type="button" id="validate" style="height:32px;width:120px;" value="点击发送验证码" onclick="sendCode(this)" />
+        </div>
+
+        <div class="register-input">
+            请选择城市：
+            <select name="city_id" id="select_city">
+                <option th:value="选择城市"></option>
+                <option th:each="city : ${cityList}" th:text=${city.city_name} th:value="${city.city_id}"></option>
+            </select><br/>
+        </div>
+        <div class="register-input">
+            请选择小区：
+            <select name="community.community_id" id="community_select">
+
+            </select><br/>
+        </div>
+        <div class="register-input">
+            <button type="submit" class="btn btn-lg btn-success btn-block" style="width:300px;background-color: deeppink;border-color:white">注册</button>
+        </div>
+    </form>
+</div>
+
+<script src="../js/jquery-3.2.0.min.js"></script>
+<script src="../layer/layer.js"></script>
+<script type="text/javascript">
+
+
+    var clock = '';
+    var nums = 60;
+    var btn;
+    function sendCode(thisBtn)
+    {
+        btn = thisBtn;
+        btn.disabled = true; //将按钮置为不可点击
+        btn.value = nums+'秒后可重新获取';
+        clock = setInterval(doLoop, 1000); //一秒执行一次
+        var user_tel = $("#user_tel").val();
+        $.ajax({
+            url:"/user/getRandom",
+            data:"user_tel="+user_tel,
+            type:"get",
+            contentType:'application/json',
+            success:function (data) {
+                layer.msg(data,{icon: 10})
+            }
+        })
+    }
+    function doLoop()
+    {
+        nums--;
+        if(nums > 0){
+            btn.value = nums+'秒后可重新获取';
+        }else{
+            clearInterval(clock); //清除js定时器
+            btn.disabled = false;
+            btn.value = '点击发送验证码';
+            nums = 60; //重置时间
+        }
+    }
+    $(document).ready(function () {
+        //级联查询
+        $("#select_city").change(function () {
+            var $city_id= $(this).val();
+            var $community_id = $("#community_select");
+            $.post("/community/getByCityId",{city_id:$city_id},function (data) {
+                $community_id.html("");
+                $.each(data,function (index,element) {
+                    $community_id.append("<option value="+element.community_id+">"+element.community_name+"</option>");
+                })
+            })
+        })
+        $("#registerForm").bootstrapValidator({
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields:{
+                user_name:{
+                    message:'验证失败',
+                    validators:{
+                        notEmpty:{
+                            message:'用户名不能为空'
+                        }
+                    }
+                }
+            }
+        }).on('success.form.bv', function(e){
+            e.preventDefault();
+            alert("11111111")
+
+        })
+    })
+
+
+</script>
+</body>
+</html>

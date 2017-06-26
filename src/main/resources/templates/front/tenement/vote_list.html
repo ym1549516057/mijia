@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!--自适应-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+    <title>业主投票</title>
+    <link rel="stylesheet" href="/css/public.css">
+</head>
+<body>
+    <div class="main">
+        <div class="title"><h1>业主投票</h1></div>
+        <div class="dis" th:each="vote:${voteList}">
+            <div class="dis1"><p class="vote_id" th:text="${vote.vote_name}" th:value="${vote.vote_id}"></p></div>
+            <div class="dis2">
+                <p th:if="${vote.vote_state == 0}">投票中</p>
+                <p th:if="${vote.vote_state == 1}">投票结束</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
