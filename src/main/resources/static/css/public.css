@@ -18,22 +18,26 @@
 .dis{
     display: flex;
     display: -webkit-flex;
-    height: 100px;
+    height: 80px;
     width: 100%;
+
+    border-bottom: 1px solid wheat;
 }
 
 .dis1{
     display: flex;
     display: -webkit-flex;
-    height: 100px;
+    height: 80px;
     width: 80%;
+    align-items: center;
 /*    justify-content: center;*/
     padding-left: 20px;
 }
 .dis2{
     display: flex;
     display: -webkit-flex;
-    height: 100px;
+    height: 80px;
     width: 20%;
+    align-items: center;
     justify-content: center;
 }

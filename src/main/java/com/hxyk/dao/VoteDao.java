@@ -16,4 +16,5 @@ public interface VoteDao {
     List<Vote> getAll(@Param("community_id") int community_id);
     List<Vote> getVoteByOption(@Param("community_id") int community_id, @Param("offset") int offset, @Param("pageSize")int pageSize);
     int getTotalByOption(@Param("community_id") int community_id);
+    int addVote(Vote vote);
 }

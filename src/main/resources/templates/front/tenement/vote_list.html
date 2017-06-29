@@ -11,12 +11,26 @@
     <div class="main">
         <div class="title"><h1>业主投票</h1></div>
         <div class="dis" th:each="vote:${voteList}">
-            <div class="dis1"><p class="vote_id" th:text="${vote.vote_name}" th:value="${vote.vote_id}"></p></div>
+            <div class="dis1">
+                <p class="vote_id" th:text="${vote.vote_name}" th:value="${vote.vote_id}"></p>
+            </div>
             <div class="dis2">
                 <p th:if="${vote.vote_state == 0}">投票中</p>
                 <p th:if="${vote.vote_state == 1}">投票结束</p>
             </div>
         </div>
     </div>
+    <script type="text/javascript" src="/ace/assets/js/jquery-1.11.3.min.js"></script>
+<script>
+    $(".dis").click(function () {
+        var vote_id = $(this).children(":first").children(":first").attr('value')
+        $.ajax({
+            url:"/goods/getGoodsByClassifyId",
+            data:JSON.stringify(vote_id),
+            type:"post",
+            contentType:'application/json'
+        })
+    })
+</script>
 </body>
 </html>

@@ -30,6 +30,7 @@
     <!--[if lte IE 9]>
     <link rel="stylesheet" href="/ace/assets/css/ace-ie.min.css"/>
     <![endif]-->
+    <link rel="stylesheet" href="/bootstrapDatetime/bootstrap-datetimepicker.min.css">
 
     <!-- inline styles related to this page -->
 
@@ -791,13 +792,25 @@
                 <div class="space-10"></div>
 
                 <!--内容-->
-                <form class="form-horizontal" role="form" id="myform" action="/goods/addGoods" method="post" enctype="multipart/form-data">
+                <form class="form-horizontal" role="form" id="myform" action="/tenement/addVote" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="goods_state" value="0">
 
                     <div class="form-group">
                         <label class="col-sm-3 control-label no-padding-right" for="vote_name"> 投票主题 </label>
                         <div class="col-sm-9">
                             <input type="text" id="vote_name" class="col-xs-10 col-sm-5" name="vote_name"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="vote_name"> 结束时间 </label>
+                        <div class="col-sm-9">
+                            <input type="text" id="vote_finish" name="vote_finish"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label no-padding-right" for="vote_name"> 选择条数 </label>
+                        <div class="col-sm-9">
+                            <input type="text"  name="vote_type"/>
                         </div>
                     </div>
                     <div class="space-4"></div>
@@ -815,9 +828,10 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label no-padding-right"> 投票选项 </label>
                         <div class="col-sm-9">
-                            <input type="text"  class="col-xs-10 col-sm-5" name="vote_name"/>
-                            <input type="file" name="myFile">
+                            <input type="text"  class="col-xs-10 col-sm-5" name="viteam_name"/>
+                            <input type="file" name="myFile" class="adver-input">
                         </div>
+
                     </div>
 <!--                    <div class="space-4"></div>-->
 
@@ -900,6 +914,9 @@
 <script src="/ace/assets/js/jquery.flot.min.js"></script>
 <script src="/ace/assets/js/jquery.flot.pie.min.js"></script>
 <script src="/ace/assets/js/jquery.flot.resize.min.js"></script>
+<!--date-->
+<script src="/bootstrapDatetime/bootstrap-datetimepicker.min.js"></script>
+<script src="/bootstrapDatetime/bootstrap-datetimepicker.zh-CN.js"></script>
 
 <!-- ace scripts -->
 <script src="/ace/assets/js/ace-elements.min.js"></script>
@@ -907,10 +924,50 @@
 
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
+    $("#vote_finish").datetimepicker({
+        format:'yyyy-mm-dd hh:ii'
+    })
+
     //点击添加投票选项
     $("#add-input").click(function () {
-       this.parent().parent().parent().
+        $(this).parent().parent().after('<div class="form-group">'+
+                '<label class="col-sm-3 control-label no-padding-right"> 投票选项 </label>'+
+                '<div class="col-sm-9">'+
+                '<input type="text"  class="col-xs-10 col-sm-5" name="viteam_name"/>'+
+                '<input type="file" name="myFile" class="adver-input">'+
+                '<div class="adver-div2"></div>'+
+                '</div>'+
+                '</div>');
     })
+    //图片回显
+   /* $(function() {
+        $(".adver-input").click(function () {
+            // $(".adver-input").click(); //隐藏了input:file样式后，点击头像就可以本地上传
+            $(".adver-input").on("change",function(){
+
+                var objUrl = getObjectURL(this.files[0]) ;
+                if (objUrl) {
+                    // $(".adver-input").attr("src", objUrl) ;                 $(".adver-div2").children().remove();
+                    var html = '<img style="height: 50px;width: 50px" class="adver-img2" src="'+objUrl+'"/>';
+                    $(this).parent().append(html);
+                }
+            });
+        });
+    });
+
+
+    function getObjectURL(file) {
+        var url = null ;
+        if (window.createObjectURL!=undefined) { // basic
+            url = window.createObjectURL(file) ;
+        } else if (window.URL!=undefined) { // mozilla(firefox)
+            url = window.URL.createObjectURL(file) ;
+        } else if (window.webkitURL!=undefined) { // webkit or chrome
+            url = window.webkitURL.createObjectURL(file) ;
+        }
+        return url ;
+    }
+*/
 
 
     //重置表单

@@ -971,12 +971,13 @@
             }, {
                 field: 'vote_creat_time',
                 align: 'center',
-                title: '发起投票时间'
+                title: '发起投票时间',
+                formatter: formatCreat
             }, {
                 field: 'vote_finish',
                 align: 'center',
                 title: '结束投票时间',
-     /*           formatter: formatIsDisplay*/
+                formatter: formateEnd
             }/*, {
                 field: 'goods_ivn',
                 align: 'center',
@@ -1006,6 +1007,43 @@
 /*            isDisplay: $("#isDisplay").val()*/
         }
         return temp;
+    }
+
+    function formatCreat(value) {
+        var JSONDateString = JSON.stringify(value);
+        if (JSONDateString != undefined) {
+            var date = new Date(parseInt(JSONDateString.replace("/Date(", "").replace(")/", ""), 10));
+            var hh = date.getHours();
+            var mm = date.getMinutes();
+            var ss = date.getSeconds();
+            var yy = date.getFullYear();
+            var MM = date.getMonth() + 1;
+            var dd = date.getDate();
+            if (hh == 0 && mm == 0 && ss == 0) {
+                return yy + "-" + MM + "-" + dd;
+            }
+            else {
+                return yy + "-" + MM + "-" + dd + " " + hh + ":" + mm + ":" +ss;
+            }
+        }
+    }
+    function formateEnd(value) {
+        var JSONDateString = JSON.stringify(value);
+        if (JSONDateString != undefined) {
+            var date = new Date(parseInt(JSONDateString.replace("/Date(", "").replace(")/", ""), 10));
+            var hh = date.getHours();
+            var mm = date.getMinutes();
+            var ss = date.getSeconds();
+            var yy = date.getFullYear();
+            var MM = date.getMonth() + 1;
+            var dd = date.getDate();
+            if (hh == 0 && mm == 0 && ss == 0) {
+                return yy + "-" + MM + "-" + dd;
+            }
+            else {
+                return yy + "-" + MM + "-" + dd + " " + hh + ":" + mm + ":" +ss;
+            }
+        }
     }
 
     function formatState(value) {

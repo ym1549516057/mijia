@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hxyk.dao.VoteDao">
+    <insert id="addVote">
+        <selectKey keyProperty="vote_id" order="AFTER" resultType="java.lang.Integer">
+            SELECT last_insert_id()
+        </selectKey>
+        INSERT INTO vote(vote_name,vote_state,vote_creat_time,vote_finish,community_id,vote_count,vote_type)
+        VALUES (#{vote_name},#{vote_state},#{vote_creat_time},#{vote_finish},#{community_id},#{vote_count},#{vote_type})
+    </insert>
     <select id="getAll" resultType="com.hxyk.entity.Vote">
         SELECT * FROM vote WHERE community_id=#{community_id}
     </select>

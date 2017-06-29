@@ -32,4 +32,9 @@ public class VoteServiceImpl implements VoteService{
         map.put("rows",voteList);
         return map;
     }
+
+    @Override
+    public void addVote(Vote vote) {
+        voteDao.addVote(vote);
+    }
 }

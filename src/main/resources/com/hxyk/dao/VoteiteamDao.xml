@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hxyk.dao.VoteiteamDao">
+    <insert id="addVoteiteam">
+        INSERT INTO voteiteam(viteam_name,viteam_pic,viteam_count,vote_id)
+        VALUES (#{viteam_name},#{viteam_pic},#{viteam_count},#{vote_id})
+    </insert>
+</mapper>

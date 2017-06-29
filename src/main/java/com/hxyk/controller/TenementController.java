@@ -5,6 +5,7 @@ import com.hxyk.entity.*;
 import com.hxyk.service.RepairsService;
 import com.hxyk.service.TenementService;
 import com.hxyk.service.VoteService;
+import com.hxyk.service.VoteiteamService;
 import com.qiniu.common.QiniuException;
 import com.qiniu.common.Zone;
 import com.qiniu.http.Response;
@@ -48,6 +49,9 @@ public class TenementController {
 
     @Autowired
     TenementService tenementService;
+
+    @Autowired
+    VoteiteamService voteiteamService;
 
     @RequestMapping("tologin")
     public String tologin(){
@@ -99,6 +103,29 @@ public class TenementController {
         return map;
     }
 
+    //发起新的投票
+    @RequestMapping("addVote")
+    public String addVote(Vote vote,String viteam_name,MultipartFile[] myFile,HttpSession httpSession){
+        vote.setVote_state(0);
+        Timestamp timestamp = new Timestamp(new Date().getTime());
+        vote.setVote_creat_time(timestamp);//创建时间
+        Tenement tenement = (Tenement)httpSession.getAttribute("tenement");
+        vote.setCommunity_id(tenement.getCommunity_id());//小区ID
+        vote.setVote_count(0);//总票数
+        voteService.addVote(vote);
+        Voteiteam voteiteam = new Voteiteam();
+        for(int i=0;i<viteam_name.split(",").length;i++){
+            voteiteam.setViteam_name(viteam_name.split(",")[i]);
+            voteiteam.setViteam_count(0);
+            voteiteam.setViteam_pic(upDateQiNiu(myFile[i]));
+            voteiteam.setVote_id(vote.getVote_id());
+            voteiteamService.addVoteiteam(voteiteam);
+        }
+        return "back/tenement/vote_list";
+    }
+
+
+    //维修
     @RequestMapping("uploadRepairsPic")
     @ResponseBody
     public String uploadRepairsPic(MultipartFile f,Repairs repairs, HttpSession httpSession){

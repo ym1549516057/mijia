@@ -11,4 +11,5 @@ import java.util.Map;
 public interface VoteService {
     List<Vote> getAll(int community_id);
     Map getVoteByOption(int community_id,int offset,int pageSize);
+    void addVote(Vote vote);
 }
